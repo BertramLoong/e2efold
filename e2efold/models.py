@@ -1186,8 +1186,11 @@ class ContactNetwork_ResNet(ContactNetwork):
 
 # for testing
 def testing():
-    seq = torch.rand([32, 135, 4])
-    contact = torch.zeros([32, 135,135,1], dtype=torch.int32)
+    '''
+    用创建随机的绝对位置和相对位置数据
+    '''
+    seq = torch.rand([32, 135, 4]) # PE编码数据；创建随机tensor，32个样本，135长度，每个序列位置4个特征
+    contact = torch.zeros([32, 135,135,1], dtype=torch.int32) # one-hot编码数据
     contact[:, :,0]=1
     contact[:, :,1]=-1
     state = torch.zeros([32, 135, 135], dtype=torch.int32)
