@@ -25,14 +25,14 @@ seq_dict = {
     'C':np.array([0,0,1,0]),
     'G':np.array([0,0,0,1]),
     'N':np.array([0,0,0,0]),
-    'M':np.array([1,0,1,0]),
-    'Y':np.array([0,1,1,0]),
-    'W':np.array([1,0,0,0]),
-    'V':np.array([1,0,1,1]),
-    'K':np.array([0,1,0,1]),
-    'R':np.array([1,0,0,1]),
-    'I':np.array([0,0,0,0]),
-    'X':np.array([0,0,0,0]),
+    'M':np.array([1,0,1,0]), # A/C
+    'Y':np.array([0,1,1,0]), # U/C
+    'W':np.array([1,0,0,0]), 
+    'V':np.array([1,0,1,1]), # A/C/G
+    'K':np.array([0,1,0,1]), # U/G
+    'R':np.array([1,0,0,1]), # A/G
+    'I':np.array([0,0,0,0]), 
+    'X':np.array([0,0,0,0]), 
     'S':np.array([0,0,1,1]),
     'D':np.array([1,1,0,1]),
     'P':np.array([0,0,0,0]),
@@ -65,6 +65,9 @@ def soft_sign(x, k):
     return torch.sigmoid(k * x)
 
 def seq_encoding(string):
+    '''
+    对string序列构造one-hot编码
+    '''
     str_list = list(string)
     encoding = list(map(lambda x: seq_dict[x], str_list))
     # need to stack
@@ -74,6 +77,9 @@ def Gaussian(x):
     return math.exp(-0.5*(x*x))
 
 def paired(x,y):
+    '''
+    碱基互补配对的打分
+    '''
     if x == 'A' and y == 'U':
         return 2
     elif x == 'G' and y == 'C':
